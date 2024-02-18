@@ -10,12 +10,33 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model UserOrg {
-  id       String @id @default(uuid())
-  name     String
-  email    String @unique
-  whatsapp String
-  address  String
+enum Sexo {
+  F
+  M
+}
 
-  @@map("user_org")
+model UserOrg {
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  whatsapp      String
+  address       String
+  password_hash String
+  created_at    DateTime @default(now())
+  updated_at    DateTime @default(now())
+
+  @@map("user_orgs")
+}
+
+model Pet {
+  id              String   @id @default(uuid())
+  name            String
+  sexo            Sexo
+  species         String?
+  race            String?
+  characteristics String?
+  created_at      DateTime @default(now())
+  updated_at      DateTime @default(now())
+
+  @@map("pets")
 }
