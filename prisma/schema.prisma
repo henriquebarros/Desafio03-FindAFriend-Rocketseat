@@ -16,14 +16,15 @@ enum Sexo {
 }
 
 model UserOrg {
-  id            String   @id @default(uuid())
+  id            String    @id @default(uuid())
   name          String
-  email         String   @unique
+  email         String    @unique
   whatsapp      String
-  address       String
   password_hash String
-  created_at    DateTime @default(now())
-  updated_at    DateTime @default(now())
+  created_at    DateTime  @default(now())
+  updated_at    DateTime  @default(now())
+  Address       Address[]
+  Pet           Pet[]
 
   @@map("user_orgs")
 }
@@ -37,6 +38,23 @@ model Pet {
   characteristics String?
   created_at      DateTime @default(now())
   updated_at      DateTime @default(now())
+  user_org_id     String
+  user_org        UserOrg  @relation(fields: [user_org_id], references: [id])
 
   @@map("pets")
+}
+
+model Address {
+  id             String   @id @default(uuid())
+  address        String
+  number_address String?
+  state          String
+  city           String
+  postal_code    String
+  user_org_id    String
+  updated_at     DateTime @default(now())
+
+  user_org UserOrg @relation(fields: [user_org_id], references: [id])
+
+  @@map("address")
 }
