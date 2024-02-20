@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma'
+import { PrismaUserOrgsRepository } from '@/repositories/prisma-user-ongs-repository'
 import { hash } from 'bcryptjs'
 
 interface RegisterUseCaseRequest {
@@ -26,12 +27,12 @@ export async function registerUseCase({
 
   const password_hash = await hash(password, 6)
 
-  await prisma.userOrg.create({
-    data: {
-      name,
-      email,
-      whatsapp,
-      password_hash,
-    },
+  const prismaUserOrgsRepository = new PrismaUserOrgsRepository()
+
+  await prismaUserOrgsRepository.create({
+    name,
+    email,
+    whatsapp,
+    password_hash,
   })
 }
