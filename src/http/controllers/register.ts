@@ -3,6 +3,7 @@ import { z } from 'zod'
 
 import { RegisterUseCase } from '@/use-cases/register'
 import { PrismaUserOrgsRepository } from '@/repositories/prisma/prisma-user-orgs-repository'
+import { UserOrgAlreadyExistsError } from '@/use-cases/errors/user-org-already-exists-error'
 
 export const register = async (
   request: FastifyRequest,
@@ -29,7 +30,11 @@ export const register = async (
       password,
     })
   } catch (err) {
-    return reply.status(406).send()
+    if (err instanceof UserOrgAlreadyExistsError) {
+      return reply.status(406).send({ message: err.message })
+    }
+
+    return reply.status(500).send()
   }
 
   return reply.status(201).send()

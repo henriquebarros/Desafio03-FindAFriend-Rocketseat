@@ -1,5 +1,6 @@
 import { UsersOrgsResponsitory } from '@/repositories/users-ongs-repository'
 import { hash } from 'bcryptjs'
+import { UserOrgAlreadyExistsError } from './errors/user-org-already-exists-error'
 
 interface RegisterUseCaseRequest {
   name: string
@@ -15,7 +16,7 @@ export class RegisterUseCase {
     const orgsWithSameEmail = await this.usersOngsRepository.findByEmail(email)
 
     if (orgsWithSameEmail) {
-      throw new Error('E-mail already exists')
+      throw new UserOrgAlreadyExistsError()
     }
 
     const password_hash = await hash(password, 6)
