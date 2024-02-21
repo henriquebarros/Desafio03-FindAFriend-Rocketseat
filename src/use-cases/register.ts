@@ -13,13 +13,13 @@ export class RegisterUseCase {
   constructor(private usersOngsRepository: UsersOrgsResponsitory) {}
 
   async execute({ name, email, whatsapp, password }: RegisterUseCaseRequest) {
+    const password_hash = await hash(password, 6)
+
     const orgsWithSameEmail = await this.usersOngsRepository.findByEmail(email)
 
     if (orgsWithSameEmail) {
       throw new UserOrgAlreadyExistsError()
     }
-
-    const password_hash = await hash(password, 6)
 
     await this.usersOngsRepository.create({
       name,
