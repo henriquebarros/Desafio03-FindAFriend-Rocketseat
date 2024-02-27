@@ -1,5 +1,6 @@
-import { describe, it } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { RegisterUseCase } from './register'
+import { compare } from 'bcryptjs'
 
 describe('Register Use Case', () => {
   it('should hash user org password upon registration', async () => {
@@ -21,11 +22,17 @@ describe('Register Use Case', () => {
       },
     })
 
-    await registerUseCase.execute({
+    const {userOrg} = await registerUseCase.execute({
       name: 'John Doe',
       email: 'johndoe@exemple.com',
       whatsapp: '85986254012',
       password: '123456',
     })
+
+    const isPasswordCorrectlyHashed = await compare(
+      '123456',
+      userOrg.password_hash,
+    )
+    expect(isPasswordCorrectlyHashed).toBe(true)
   })
 })
