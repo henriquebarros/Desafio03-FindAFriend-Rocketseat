@@ -1,15 +1,20 @@
-import { describe, it, expect } from 'vitest'
+import { beforeEach, describe, it, expect } from 'vitest'
 import { RegisterUseCase } from './register'
 import { compare } from 'bcryptjs'
 import { InMemoryUsersOrgsRepository } from '@/repositories/in-memory/in-memory-users-orgs-repository'
 import { UserOrgAlreadyExistsError } from './errors/user-org-already-exists-error'
 
-describe('Register Use Case', () => {
-  it('should hash user org password upon registration', async () => {
-    const userOrgRepository = new InMemoryUsersOrgsRepository()
-    const registerUseCase = new RegisterUseCase(userOrgRepository)
+let userOrgRepository: InMemoryUsersOrgsRepository
+let sut: RegisterUseCase
 
-    const { userOrg } = await registerUseCase.execute({
+describe('Register Use Case', () => {
+  beforeEach(() => {
+    userOrgRepository = new InMemoryUsersOrgsRepository()
+    sut = new RegisterUseCase(userOrgRepository)
+  })
+
+  it('should hash user org password upon registration', async () => {
+    const { userOrg } = await sut.execute({
       name: 'John Doe',
       email: 'johndoe@exemple.com',
       whatsapp: '85986254012',
@@ -20,10 +25,7 @@ describe('Register Use Case', () => {
   })
 
   it('should hash user org password upon registration', async () => {
-    const userOrgRepository = new InMemoryUsersOrgsRepository()
-    const registerUseCase = new RegisterUseCase(userOrgRepository)
-
-    const { userOrg } = await registerUseCase.execute({
+    const { userOrg } = await sut.execute({
       name: 'John Doe',
       email: 'johndoe@exemple.com',
       whatsapp: '85986254012',
@@ -37,12 +39,9 @@ describe('Register Use Case', () => {
     expect(isPasswordCorrectlyHashed).toBe(true)
   })
   it('should not be able to register with same email twice', async () => {
-    const userOrgRepository = new InMemoryUsersOrgsRepository()
-    const registerUseCase = new RegisterUseCase(userOrgRepository)
-
     const email = 'johndoe@exemple.com'
 
-    await registerUseCase.execute({
+    await sut.execute({
       name: 'John Doe',
       email,
       whatsapp: '85986254012',
@@ -50,7 +49,7 @@ describe('Register Use Case', () => {
     })
 
     await expect(() =>
-      registerUseCase.execute({
+      sut.execute({
         name: 'John Doe',
         email,
         whatsapp: '85986254012',
