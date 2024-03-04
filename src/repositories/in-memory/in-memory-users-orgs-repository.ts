@@ -3,6 +3,14 @@ import { UsersOrgsResponsitory } from '../users-ongs-repository'
 
 export class InMemoryUsersOrgsRepository implements UsersOrgsResponsitory {
   public items: UserOrg[] = []
+  async findById(id: string) {
+    const userOrg = this.items.find((item) => item.id === id)
+    if (!userOrg) {
+      return null
+    }
+
+    return userOrg
+  }
 
   async findByEmail(email: string) {
     const userOrg = this.items.find((item) => item.email === email)
