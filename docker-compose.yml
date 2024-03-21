@@ -3,10 +3,10 @@ version: '3.7'
 
 services:
   api-solid-findafriend:
-    image: bitnami/postgresql
+    image: bitnami/postgresql:latest
     ports:
       - '5433:5432'
     environment:
-      - POSTGRESQL_USERNAME=docker
-      - POSTGRESQL_PASSWORD=docker
-      - POSTGRESQL_DATABASE=apifindafriend
+      - POSTGRES_USER=docker
+      - POSTGRES_PASSWORD=docker
+      - POSTGRES_DB=apifindafriend
