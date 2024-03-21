@@ -1,4 +1,4 @@
-import { UsersOrgsResponsitory } from '@/repositories/users-ongs-repository'
+import { UsersOrgsResponsitory } from '@/repositories/users-orgs-repository'
 import { hash } from 'bcryptjs'
 import { UserOrgAlreadyExistsError } from './errors/user-org-already-exists-error'
 import { UserOrg } from '@prisma/client'

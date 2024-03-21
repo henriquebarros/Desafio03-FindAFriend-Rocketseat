@@ -1,4 +1,4 @@
-import { UsersOrgsResponsitory } from '@/repositories/users-ongs-repository'
+import { UsersOrgsResponsitory } from '@/repositories/users-orgs-repository'
 import { UserOrg } from '@prisma/client'
 import { InvalidCredentialsError } from './errors/invalid-credentials-error'
 import { compare } from 'bcryptjs'

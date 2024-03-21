@@ -1,5 +1,5 @@
 import { Prisma, UserOrg } from '@prisma/client'
-import { UsersOrgsResponsitory } from '../users-ongs-repository'
+import { UsersOrgsResponsitory } from '../users-orgs-repository'
 
 export class InMemoryUsersOrgsRepository implements UsersOrgsResponsitory {
   public items: UserOrg[] = []

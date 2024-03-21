@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import { Prisma } from '@prisma/client'
-import { UsersOrgsResponsitory } from '../users-ongs-repository'
+import { UsersOrgsResponsitory } from '../users-orgs-repository'
 
 export class PrismaUserOrgsRepository implements UsersOrgsResponsitory {
   async findById(id: string) {
