@@ -1,4 +1,4 @@
-import { UsersOrgsResponsitory } from '@/repositories/users-ongs-repository'
+import { UsersOrgsResponsitory } from '@/repositories/users-orgs-repository'
 import { UserOrg } from '@prisma/client'
 import { ResourceNotFoundError } from './errors/resource-not-found-error'
 
