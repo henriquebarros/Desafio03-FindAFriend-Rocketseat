@@ -1,6 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import { Prisma } from '@prisma/client'
-import { AddressOrgsResponsitory } from '../address-orgs-respository'
+import { AddressOrgsResponsitory } from '../address-orgs-repository'
 
 export class PrismaAddressOrgsRepository implements AddressOrgsResponsitory {
   async create(data: Prisma.AddressUncheckedCreateInput) {

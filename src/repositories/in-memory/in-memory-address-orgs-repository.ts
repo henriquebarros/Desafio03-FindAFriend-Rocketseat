@@ -1,9 +1,9 @@
 import { Prisma, Address } from '@prisma/client'
-import { AddressOrgsResponsitory } from '../address-orgs-respository'
+import { AddressOrgsResponsitory } from '../address-orgs-repository'
 import { randomUUID } from 'node:crypto'
 
 export class InMemoryAddressOrgsRespository implements AddressOrgsResponsitory {
-  itens: Address[] = []
+  public items: Address[] = []
 
   async create(data: Prisma.AddressUncheckedCreateInput) {
     const address = {
@@ -17,7 +17,7 @@ export class InMemoryAddressOrgsRespository implements AddressOrgsResponsitory {
       updated_at: new Date(),
     }
 
-    this.itens.push(address)
+    this.items.push(address)
 
     return address
   }

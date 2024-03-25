@@ -19,7 +19,7 @@ describe('Address Use Case', () => {
     const createUserOrg = await usersOrgsRepository.create({
       name: 'John Doe',
       email: 'johndoe@exemple.com',
-      whatsapp: '85986254012',
+      whatsapp: '85988888888',
       password_hash: '123456',
     })
 
