@@ -1,5 +1,5 @@
 import { Address } from '@prisma/client'
-import { AddressOrgsResponsitory } from '@/repositories/address-orgs-respository'
+import { AddressOrgsResponsitory } from '@/repositories/address-orgs-repository'
 
 interface RegisterAddressUseCaseRequest {
   user_org_id: string

@@ -1,4 +1,4 @@
-import { PrismaAddressOrgsRepository } from '@/repositories/prisma/address-orgs-respository'
+import { PrismaAddressOrgsRepository } from '@/repositories/prisma/address-orgs-repository'
 import { RegisterAddressUseCase } from '../register-address-org'
 
 export function makeRegisterAddressOrgUseCase() {
