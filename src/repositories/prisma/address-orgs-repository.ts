@@ -10,4 +10,14 @@ export class PrismaAddressOrgsRepository implements AddressOrgsResponsitory {
 
     return userOrg
   }
+
+  async findAddressById(orgId: string) {
+    const address = await prisma.address.findFirst({
+      where: {
+        user_org_id: orgId,
+      },
+    })
+
+    return address
+  }
 }

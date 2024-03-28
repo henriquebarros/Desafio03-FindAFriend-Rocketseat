@@ -1,5 +1,6 @@
 import { Prisma, UserOrg } from '@prisma/client'
 import { UsersOrgsResponsitory } from '../users-orgs-repository'
+import { randomUUID } from 'node:crypto'
 
 export class InMemoryUsersOrgsRepository implements UsersOrgsResponsitory {
   public items: UserOrg[] = []
@@ -23,7 +24,7 @@ export class InMemoryUsersOrgsRepository implements UsersOrgsResponsitory {
 
   async create(data: Prisma.UserOrgCreateInput) {
     const userOrg = {
-      id: 'user-id',
+      id: randomUUID(),
       name: data.name,
       email: data.email,
       whatsapp: data.whatsapp,

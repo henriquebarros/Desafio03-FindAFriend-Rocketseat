@@ -21,4 +21,13 @@ export class InMemoryAddressOrgsRespository implements AddressOrgsResponsitory {
 
     return address
   }
+
+  async findAddressById(orgId: string) {
+    // console.log(this.items, orgId)
+    const address = this.items.find((item) => item.user_org_id === orgId)
+    if (!address) {
+      return null
+    }
+    return address
+  }
 }

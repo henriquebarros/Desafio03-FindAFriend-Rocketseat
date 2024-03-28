@@ -1,3 +1,4 @@
+import { UnregisteredAddressError } from '@/use-cases/errors/unregistered-address-error'
 import { makeCreatePetUseCase } from '@/use-cases/factories/make-create-pet-use-case'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
@@ -16,15 +17,23 @@ export const create = async (request: FastifyRequest, reply: FastifyReply) => {
     request.body,
   )
 
-  const createPetUseCase = makeCreatePetUseCase()
-  await createPetUseCase.execute({
-    user_org_id: request.user.sub,
-    name,
-    sexo,
-    species,
-    race,
-    characteristics,
-  })
+  try {
+    const createPetUseCase = makeCreatePetUseCase()
+    await createPetUseCase.execute({
+      user_org_id: request.user.sub,
+      name,
+      sexo,
+      species,
+      race,
+      characteristics,
+    })
 
-  return reply.status(201).send()
+    return reply.status(201).send()
+  } catch (err) {
+    if (err instanceof UnregisteredAddressError) {
+      return reply.status(406).send({ message: err.message })
+    }
+
+    return reply.status(500).send()
+  }
 }
